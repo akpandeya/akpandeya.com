@@ -15,16 +15,16 @@ Personal portfolio and blog built with Astro, TypeScript, and Tailwind CSS follo
 
 ### Test-Driven Development Cycle
 
-1. **RED:** Use `/test_writer` agent to create failing tests
-2. **GREEN:** Use `/code_writer` agent to implement minimal code
+1. **RED:** Use `/test_writer_ts` agent to create failing tests
+2. **GREEN:** Use `/code_writer_ts` agent to implement minimal code
 3. **REFACTOR:** Improve code quality while keeping tests green
 4. **VERIFY:** Use `/test_runner` to confirm all tests pass
 
 ### Available Agents
 
 ```bash
-/test_writer     # Generate comprehensive tests (unit, integration)
-/code_writer     # Implement code following TDD and DDD patterns
+/test_writer_ts  # Generate comprehensive Vitest tests (TypeScript)
+/code_writer_ts  # Implement TypeScript code following TDD and DDD patterns
 /test_runner     # Execute tests and display coverage reports
 /ddd_architect   # Domain modeling and architecture guidance
 ```
@@ -179,7 +179,7 @@ All checks must pass before deployment:
 
 ```bash
 # 1. Create test first
-/test_writer "Test blog post rendering with title, date, and excerpt"
+/test_writer_ts "Test blog post rendering with title, date, and excerpt"
 
 # 2. Add markdown file
 echo "---
@@ -202,22 +202,15 @@ npm run build
 
 ```bash
 # 1. Write tests first (strict TDD)
-/test_writer "Create tests for ProjectCard component"
+/test_writer_ts "Create tests for ProjectCard component"
 
 # 2. Implement component
-/code_writer "Implement ProjectCard based on failing tests"
+/code_writer_ts "Implement ProjectCard based on failing tests"
 
 # 3. Run tests
 npm run test:run
 
 # 4. Refactor if needed (tests must stay green)
-```
-
-### Modifying CI/CD Workflow
-
-```bash
-# Use the ci_cd_manager skill
-/ci_cd_manager "Add Codecov integration to upload coverage reports"
 ```
 
 ## Project Structure
