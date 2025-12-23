@@ -1,302 +1,261 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogCard from '../components/BlogCard.astro';
-import Icon from '../components/Icon.astro';
-import TechBadge from '../components/TechBadge.astro';
-import SectionCard from '../components/SectionCard.astro';
-import MetricHighlight from '../components/MetricHighlight.astro';
-import TimelineItem from '../components/TimelineItem.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import TechBadge from "../components/TechBadge.astro";
+import TimelineItem from "../components/TimelineItem.astro";
 
-// Fetch latest blog posts
-const allPosts = await getCollection('blog', ({ data }) => {
-  return !data.draft;
-});
+const timeline = [
+  {
+    title: "Senior Software Developer (SCM & Automation)",
+    organization: "HelloFresh",
+    location: "Berlin, Germany",
+    date: "July 2021 – Present",
+    description:
+      "Leading supply chain network optimization and data automation initiatives.",
+    bullets: [
+      "Engineered a <strong>Network Planning System</strong> using Python and Pyomo/CP-SAT, identifying <strong>€10M+ in annual savings</strong>.",
+      "Orchestrated complex ETL pipelines with <strong>Apache Airflow</strong> to standardise order data for downstream systems.",
+      "Implemented real-time order streaming using <strong>Kafka</strong> for immediate warehouse synchronization.",
+      "Designed and deployed asynchronous microservices on <strong>Kubernetes</strong> using Terraform.",
+      "Optimized warehouse scheduling by building a hybrid <strong>Kotlin & Python</strong> application.",
+    ],
+    isCurrent: true,
+  },
+  {
+    title: "Full Stack Developer & Researcher",
+    organization: "Max Planck Institute",
+    location: "Halle, Germany",
+    date: "July 2015 – June 2021",
+    description:
+      "Combined software engineering with computational physics research.",
+    bullets: [
+      "Built a custom Experiment Management System (Django/React) to visualize massive scientific datasets.",
+      "Developed <strong>Python scripts</strong> for hardware interfacing and automated data analysis, reducing manual workload by 90%.",
+      "Established <strong>Jenkins</strong> pipelines for automated testing (TDD) and rapid deployment.",
+    ],
+    isLast: true,
+  },
+];
 
-const recentPosts = allPosts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const education = [
+  {
+    degree: "Ph.D., Nano Science / Computational Physics",
+    school: "Max Planck Institute / MLU Halle",
+    year: "2021",
+  },
+  {
+    degree: "M.Tech, Materials Science",
+    school: "IIT Kanpur",
+    year: "2013",
+    note: "CPI: 9.47/10",
+  },
+  {
+    degree: "B.Tech, Electronics & Communication",
+    school: "Mizoram University",
+    year: "2010",
+    note: "Gold Medalist",
+  },
+];
+
+const skills = {
+  Backend: ["Python (Expert)", "Kotlin", "FastAPI", "Django", "SQLAlchemy"],
+  Data: ["Apache Airflow", "Kafka", "Pandas", "Pyomo", "OR-Tools"],
+  DevOps: ["Kubernetes", "Docker", "Terraform", "GitHub Actions", "GCP"],
+  Frontend: ["React.js", "JavaScript", "HTML5", "CSS3"],
+};
 ---
 
 <BaseLayout
   title="Avanindra Kumar Pandeya - Senior Software Developer"
-  description="Senior Software Developer with 8+ years of experience building scalable backend systems. Expert in Python, distributed systems, optimization algorithms, and cloud infrastructure."
+  description="Senior Software Developer expert in Python, optimization, and distributed systems."
 >
-  <div class="max-w-content mx-auto px-4 py-12">
-    <!-- Hero Section -->
-    <section class="mb-20 relative">
-      <!-- Gradient overlay -->
-      <div class="absolute inset-0 bg-gradient-hero opacity-5 rounded-3xl -z-10 animate-gradient-shift"></div>
-
-      <h1 class="text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-text to-accent dark:from-gray-100 dark:to-accent-dark bg-clip-text text-transparent">
-        Avanindra Kumar Pandeya
-      </h1>
-
-      <p class="text-2xl text-gray-700 dark:text-gray-300 mb-2 font-medium">
-        Senior Software Developer
-      </p>
-      <p class="text-gray-600 dark:text-gray-400 mb-8">Berlin, Germany</p>
-
-      <!-- Metrics row -->
-      <div class="flex flex-col md:flex-row gap-4 md:gap-6 my-8 max-w-2xl">
-        <MetricHighlight value="8+" label="Years Experience" variant="primary" />
-        <MetricHighlight value="€10M+" label="Cost Savings" variant="secondary" />
-        <MetricHighlight value="Ph.D." label="Computational Physics" variant="primary" />
-      </div>
-
-      <!-- Social links with icons -->
-      <div class="flex gap-4">
-        <a
-          href="https://github.com/akpandeya"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-backend text-white rounded-lg hover:shadow-glow-blue transition-all duration-300 hover:scale-105"
-        >
-          <Icon name="github" class="w-5 h-5" />
-          <span>GitHub</span>
-        </a>
-        <a
-          href="https://de.linkedin.com/in/avanindra-kumar-pandeya-2469951b"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:shadow-glow-blue transition-all duration-300 hover:scale-105"
-        >
-          <Icon name="linkedin" class="w-5 h-5" />
-          <span>LinkedIn</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <Icon name="user" class="w-8 h-8 text-accent dark:text-accent-dark" />
-        <h2 class="text-3xl font-semibold text-text dark:text-gray-100">About</h2>
-      </div>
-
-      <SectionCard>
-        <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-          Senior Software Developer with <span class="font-bold text-accent dark:text-accent-dark">8+ years</span> of experience building scalable
-          backend systems and data-driven solutions. Expert in Python, distributed
-          systems, optimization algorithms, and cloud infrastructure. Proven track
-          record of delivering <span class="font-bold text-optimization-from dark:text-optimization-to">multi-million Euro cost savings</span> through efficient
-          system design and algorithmic optimization.
-        </p>
-      </SectionCard>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <Icon name="briefcase" class="w-8 h-8 text-accent dark:text-accent-dark" />
-        <h2 class="text-3xl font-semibold text-text dark:text-gray-100">Experience</h2>
-      </div>
-
-      <div class="relative">
-        <!-- Timeline line -->
-        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-devops-from via-accent to-backend-from rounded-full"></div>
-
-        <div class="space-y-8 pl-8">
-          <TimelineItem
-            title="Senior Software Developer (SCM & Automation)"
-            organization="HelloFresh"
-            location="Berlin, Germany"
-            date="July 2021 – Present"
-            bullets={[
-              'Supply Chain Optimization: Engineered a Network Planning System using <span class="font-medium text-backend-from dark:text-backend-to">Python</span> and <span class="font-medium text-optimization-from dark:text-optimization-to">Pyomo/CP-SAT</span>, reducing operational costs by over <span class="font-bold text-optimization-from dark:text-optimization-to">€10 Million/year</span>.',
-              'Data Pipelines: Orchestrated complex ETLs with <span class="font-medium text-data-from dark:text-data-to">Apache Airflow</span> to transform order data into multi-format outputs for internal downstream systems.',
-              'Real-time Streaming: Implemented order streaming using <span class="font-medium text-data-from dark:text-data-to">Kafka</span> to ensure immediate synchronization with warehouse processes.',
-              'Architecture: Designed and deployed asynchronous microservices on <span class="font-medium text-devops-from dark:text-devops-to">Kubernetes</span> using <span class="font-medium text-devops-from dark:text-devops-to">Terraform</span> for Infrastructure as Code.',
-              'Hybrid Logic: Solved warehouse scheduling constraints by building a performance-optimized <span class="font-medium text-backend-from dark:text-backend-to">Kotlin & Python</span> hybrid application.'
-            ]}
-            isCurrent={true}
-          />
-
-          <TimelineItem
-            title="Full Stack Developer & Researcher"
-            organization="Max Planck Institute"
-            location="Halle, Germany"
-            date="July 2015 – June 2021"
-            bullets={[
-              'Internal Tooling: Built a custom Experiment Management System with a <span class="font-medium text-backend-from dark:text-backend-to">Django</span> backend and <span class="font-medium text-frontend-from dark:text-frontend-to">React.js</span> frontend to manage and visualize massive scientific datasets.',
-              'Automation: Developed <span class="font-medium text-backend-from dark:text-backend-to">Python</span> scripts for hardware interfacing and automated data analysis, replacing manual workflows.',
-              'DevOps: Established <span class="font-medium text-devops-from dark:text-devops-to">Jenkins</span> pipelines for automated testing (TDD) and rapid deployment of web services.'
-            ]}
-            isLast={true}
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- Tech Stack Section -->
-    <section class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <Icon name="code" class="w-8 h-8 text-accent dark:text-accent-dark" />
-        <h2 class="text-3xl font-semibold text-text dark:text-gray-100">Tech Stack</h2>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Backend -->
-        <SectionCard glowEffect>
-          <h3 class="font-semibold mb-4 text-xl flex items-center gap-2 text-text dark:text-gray-100">
-            <span class="text-backend-from">▹</span> Backend
-          </h3>
-          <div class="flex flex-wrap gap-2">
-            <TechBadge tech="Python (Expert)" category="backend" />
-            <TechBadge tech="Kotlin" category="backend" />
-            <TechBadge tech="FastAPI" category="backend" />
-            <TechBadge tech="Django" category="backend" />
-            <TechBadge tech="Django REST" category="backend" />
-            <TechBadge tech="SQLAlchemy" category="backend" />
-          </div>
-        </SectionCard>
-
-        <!-- Data & Automation -->
-        <SectionCard glowEffect>
-          <h3 class="font-semibold mb-4 text-xl flex items-center gap-2 text-text dark:text-gray-100">
-            <span class="text-data-from">▹</span> Data & Automation
-          </h3>
-          <div class="flex flex-wrap gap-2">
-            <TechBadge tech="Apache Airflow" category="data" />
-            <TechBadge tech="Kafka" category="data" />
-            <TechBadge tech="RabbitMQ" category="data" />
-            <TechBadge tech="NumPy" category="data" />
-            <TechBadge tech="SciPy" category="data" />
-            <TechBadge tech="Pandas" category="data" />
-            <TechBadge tech="Pyomo" category="data" />
-            <TechBadge tech="OR-Tools" category="data" />
-          </div>
-        </SectionCard>
-
-        <!-- DevOps & Cloud -->
-        <SectionCard glowEffect>
-          <h3 class="font-semibold mb-4 text-xl flex items-center gap-2 text-text dark:text-gray-100">
-            <span class="text-devops-from">▹</span> DevOps & Cloud
-          </h3>
-          <div class="flex flex-wrap gap-2">
-            <TechBadge tech="Kubernetes (K8s)" category="devops" />
-            <TechBadge tech="Docker" category="devops" />
-            <TechBadge tech="Helm" category="devops" />
-            <TechBadge tech="Terraform (IaC)" category="devops" />
-            <TechBadge tech="Jenkins" category="devops" />
-            <TechBadge tech="GitHub Actions" category="devops" />
-            <TechBadge tech="Azure" category="devops" />
-            <TechBadge tech="GCP" category="devops" />
-            <TechBadge tech="Linux (Debian)" category="devops" />
-          </div>
-        </SectionCard>
-
-        <!-- Frontend -->
-        <SectionCard glowEffect>
-          <h3 class="font-semibold mb-4 text-xl flex items-center gap-2 text-text dark:text-gray-100">
-            <span class="text-frontend-from">▹</span> Frontend
-          </h3>
-          <div class="flex flex-wrap gap-2">
-            <TechBadge tech="React.js" category="frontend" />
-            <TechBadge tech="JavaScript" category="frontend" />
-            <TechBadge tech="HTML5" category="frontend" />
-            <TechBadge tech="CSS3" category="frontend" />
-          </div>
-        </SectionCard>
-      </div>
-    </section>
-
-    <!-- Education Section -->
-    <section class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <Icon name="graduation" class="w-8 h-8 text-accent dark:text-accent-dark" />
-        <h2 class="text-3xl font-semibold text-text dark:text-gray-100">Education</h2>
-      </div>
-
-      <div class="relative">
-        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-data-from to-data-to rounded-full"></div>
-
-        <div class="space-y-6 pl-8">
-          <TimelineItem
-            title="Ph.D., Nano Science / Computational Physics"
-            organization="Max Planck Institute / Martin Luther University, Halle"
-            date="2015 - 2021"
-            description="Focus: Simulation and Modeling of Quantum Materials"
-          />
-
-          <TimelineItem
-            title="M.Tech, Materials Science"
-            organization="Indian Institute of Technology (IIT) Kanpur"
-            date="2011 - 2013"
-            description="<span class='font-semibold text-optimization-from dark:text-optimization-to'>CPI: 9.47/10</span>"
-          />
-
-          <TimelineItem
-            title="B.Tech, Electronics & Communication"
-            organization="Mizoram University"
-            date="2006 - 2010"
-            description="<span class='font-semibold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent'>Gold Medalist / Topper</span>"
-            isLast={true}
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- Recent Writing Section -->
-    {
-      recentPosts.length > 0 && (
-        <section class="mb-16">
-          <div class="flex justify-between items-baseline mb-6">
-            <h2 class="text-3xl font-semibold text-text dark:text-gray-100">Recent Writing</h2>
-            <a
-              href="/blog"
-              class="text-accent dark:text-accent-dark hover:text-accent-hover dark:hover:text-cyan-300 text-sm transition-all duration-300 hover:translate-x-1"
+  <div class="max-w-5xl mx-auto px-4 py-8 md:py-12">
+    <!-- Design: 2-Column Resume Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <!-- Left Column: Sidebar (Contact, Skills, Education) -->
+      <aside class="lg:col-span-4 space-y-8 lg:pt-0">
+        <!-- Header Info (Mobile Only typically, but here we keep it structured) -->
+        <div class="space-y-4">
+          <div>
+            <h1
+              class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight"
             >
-              View all posts →
+              Avanindra Kumar Pandeya
+            </h1>
+            <h2
+              class="text-xl text-accent dark:text-accent-dark font-medium mt-1"
+            >
+              Senior Software Developer
+            </h2>
+            <p
+              class="text-gray-600 dark:text-gray-400 mt-1 flex items-center gap-2 text-sm"
+            >
+              <Icon name="location" class="w-4 h-4" /> Berlin, Germany
+            </p>
+          </div>
+
+          <!-- Social/Contact Links -->
+          <div class="flex flex-col gap-2">
+            <a
+              href="https://github.com/akpandeya"
+              target="_blank"
+              class="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-accent-dark transition-colors"
+            >
+              <Icon name="github" class="w-5 h-5 flex-shrink-0" />
+              <span
+                class="text-sm border-b border-transparent hover:border-current"
+                >github.com/akpandeya</span
+              >
+            </a>
+            <a
+              href="https://de.linkedin.com/in/avanindra-kumar-pandeya-2469951b"
+              target="_blank"
+              class="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-accent-dark transition-colors"
+            >
+              <Icon name="linkedin" class="w-5 h-5 flex-shrink-0" />
+              <span
+                class="text-sm border-b border-transparent hover:border-current"
+                >linkedin.com/in/avanindra...</span
+              >
+            </a>
+            <a
+              href="mailto:contact@akpandeya.com"
+              class="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-accent-dark transition-colors"
+            >
+              <Icon name="mail" class="w-5 h-5 flex-shrink-0" />
+              <span
+                class="text-sm border-b border-transparent hover:border-current"
+                >Get in Touch</span
+              >
             </a>
           </div>
-          <div>
-            {recentPosts.map((post) => (
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                pubDate={post.data.pubDate}
-                slug={post.slug}
-              />
-            ))}
+        </div>
+
+        <hr class="border-gray-200 dark:border-gray-800" />
+
+        <!-- Skills Section -->
+        <div>
+          <h3
+            class="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4"
+          >
+            Technical Skills
+          </h3>
+          <div class="space-y-4">
+            {
+              Object.entries(skills).map(([category, items]) => (
+                <div>
+                  <h4 class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    {category}
+                  </h4>
+                  <div class="flex flex-wrap gap-1.5">
+                    {items.map((tech) => (
+                      <TechBadge
+                        tech={tech}
+                        category={category.toLowerCase() as any}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <hr class="border-gray-200 dark:border-gray-800" />
+
+        <!-- Education Section -->
+        <div>
+          <h3
+            class="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4"
+          >
+            Education
+          </h3>
+          <div class="space-y-4">
+            {
+              education.map((edu) => (
+                <div>
+                  <h4 class="text-gray-900 dark:text-gray-100 font-medium leading-snug">
+                    {edu.degree}
+                  </h4>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">
+                    {edu.school}
+                  </div>
+                  <div class="flex justify-between items-center mt-1">
+                    <span class="text-xs text-gray-500 font-mono">
+                      {edu.year}
+                    </span>
+                    {edu.note && (
+                      <span class="text-xs font-medium text-accent dark:text-accent-dark">
+                        {edu.note}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Column: Main Content -->
+      <main class="lg:col-span-8 space-y-10">
+        <!-- About / Summary -->
+        <section>
+          <h3
+            class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2"
+          >
+            <span class="w-8 h-1 bg-accent dark:bg-accent-dark rounded-full"
+            ></span>
+            Professional Summary
+          </h3>
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+            Senior Software Developer with <span
+              class="font-medium text-gray-900 dark:text-white">8+ years</span
+            > of experience building scalable backend systems and data-driven solutions.
+            Expert in Python, distributed systems, optimization algorithms, and cloud
+            infrastructure. Proven track record of delivering <span
+              class="font-medium text-gray-900 dark:text-white"
+              >massive cost savings</span
+            > through efficient system design and algorithmic optimization.
+          </p>
+        </section>
+
+        <!-- Experience -->
+        <section>
+          <h3
+            class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2"
+          >
+            <span class="w-8 h-1 bg-accent dark:bg-accent-dark rounded-full"
+            ></span>
+            Experience
+          </h3>
+          <div class="space-y-0">
+            {timeline.map((item) => <TimelineItem {...item} />)}
           </div>
         </section>
-      )
-    }
 
-    <!-- Contact Section -->
-    <section class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <Icon name="mail" class="w-8 h-8 text-accent dark:text-accent-dark" />
-        <h2 class="text-3xl font-semibold text-text dark:text-gray-100">Contact</h2>
-      </div>
-
-      <SectionCard gradient glowEffect>
-        <p class="text-gray-700 dark:text-gray-300 mb-6 text-lg">
-          Connect with me on GitHub or LinkedIn to discuss software engineering, optimization, or potential collaborations.
-        </p>
-
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="https://github.com/akpandeya"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-3 bg-gray-900 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          >
-            <Icon name="github" class="w-5 h-5" />
-            <span class="font-medium">GitHub</span>
-          </a>
-          <a
-            href="https://de.linkedin.com/in/avanindra-kumar-pandeya-2469951b"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-500 hover:to-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-glow-blue"
-          >
-            <Icon name="linkedin" class="w-5 h-5" />
-            <span class="font-medium">LinkedIn</span>
-          </a>
-        </div>
-      </SectionCard>
-    </section>
+        <!-- Recent Writing (Simplified) -->
+        <section>
+          <div class="flex justify-between items-baseline mb-4">
+            <h3
+              class="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2"
+            >
+              <span class="w-8 h-1 bg-accent dark:bg-accent-dark rounded-full"
+              ></span>
+              Writing
+            </h3>
+            <a
+              href="/blog"
+              class="text-sm text-accent dark:text-accent-dark hover:underline"
+              >View All &rarr;</a
+            >
+          </div>
+          <p class="text-gray-600 dark:text-gray-400">
+            I write about software engineering, optimization, and my experiences
+            in the tech industry. Check out my blog for the latest posts.
+          </p>
+        </section>
+      </main>
+    </div>
   </div>
 </BaseLayout>

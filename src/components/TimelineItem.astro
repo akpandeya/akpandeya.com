@@ -10,45 +10,93 @@ interface Props {
   isCurrent?: boolean;
 }
 
-const { title, organization, location, date, description, bullets, isLast = false, isCurrent = false } = Astro.props;
+const {
+  title,
+  organization,
+  location,
+  date,
+  description,
+  bullets,
+  isLast = false,
+  isCurrent = false,
+} = Astro.props;
 ---
 
-<div class="relative pl-8 pb-8">
-  <!-- Timeline dot -->
-  <div class={`
-    absolute left-0 top-1 w-4 h-4 rounded-full border-4 border-white dark:border-gray-900
-    ${isCurrent ? 'bg-accent dark:bg-accent-dark animate-pulse-dot' : 'bg-blue-500'}
-  `}></div>
+<div class="grid grid-cols-[auto_1fr] gap-x-4 md:gap-x-8 group">
+  <!-- Timeline Graphic Column -->
+  <div class="relative flex flex-col items-center">
+    <!-- Dot -->
+    <div
+      class={`
+        w-3 h-3 rounded-full border-2 z-10 transition-colors duration-300 mt-2
+        ${
+          isCurrent
+            ? "bg-accent dark:bg-accent-dark border-accent dark:border-accent-dark shadow-[0_0_0_4px_rgba(13,116,144,0.15)]"
+            : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 group-hover:border-accent dark:group-hover:border-accent-dark"
+        }
+      `}
+    >
+    </div>
+    <!-- Line -->
+    {
+      !isLast && (
+        <div class="flex-1 w-px bg-gray-200 dark:bg-gray-700 my-1 group-hover:bg-gray-300 dark:group-hover:bg-gray-600 transition-colors" />
+      )
+    }
+  </div>
 
-  <!-- Connecting line -->
-  {!isLast && (
-    <div class="absolute left-[7px] top-5 bottom-0 w-0.5 bg-gradient-to-b from-accent/50 to-blue-500/50"></div>
-  )}
-
-  <!-- Content card -->
-  <div class="bg-white dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-    <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-3">
-      <h3 class="text-xl font-semibold text-text dark:text-gray-100">{title}</h3>
-      <span class="text-sm text-gray-600 dark:text-gray-400 md:ml-4">{date}</span>
+  <!-- Content Column -->
+  <div class="pb-8 md:pb-12">
+    <!-- Date Header -->
+    <div class="mb-1">
+      <span
+        class="font-mono text-sm font-semibold text-accent dark:text-accent-dark"
+        >{date}</span
+      >
     </div>
 
-    <p class="text-gray-600 dark:text-gray-400 mb-2 font-medium">
-      {organization}{location && ` | ${location}`}
-    </p>
+    <div class="flex flex-col items-start">
+      <h3
+        class="text-lg font-bold text-gray-900 dark:text-gray-100 leading-tight group-hover:text-accent dark:group-hover:text-accent-dark transition-colors"
+      >
+        {title}
+      </h3>
 
-    {description && (
-      <p class="text-gray-700 dark:text-gray-300 mb-3 text-sm" set:html={description}></p>
-    )}
+      <div
+        class="flex flex-wrap items-center gap-x-2 text-sm text-gray-600 dark:text-gray-400 mt-1 mb-3 font-medium"
+      >
+        <span>{organization}</span>
+        {
+          location && (
+            <>
+              <span class="text-gray-300 dark:text-gray-600">•</span>
+              <span>{location}</span>
+            </>
+          )
+        }
+      </div>
 
-    {bullets && bullets.length > 0 && (
-      <ul class="space-y-2">
-        {bullets.map((bullet) => (
-          <li class="flex items-start gap-2 text-gray-700 dark:text-gray-300">
-            <span class="text-accent dark:text-accent-dark mt-1 flex-shrink-0">▹</span>
-            <span set:html={bullet} />
-          </li>
-        ))}
-      </ul>
-    )}
+      {
+        description && (
+          <p
+            class="text-gray-700 dark:text-gray-300 mb-3 text-sm leading-relaxed"
+            set:html={description}
+          />
+        )
+      }
+
+      {
+        bullets && bullets.length > 0 && (
+          <ul class="space-y-2">
+            {bullets.map((bullet) => (
+              <li class="relative pl-0 text-sm text-gray-700 dark:text-gray-300 leading-relaxed flex items-start gap-2">
+                <span class="mt-[0.6em] w-1 h-1 bg-gray-400 dark:bg-gray-600 rounded-full flex-shrink-0" />
+                <span set:html={bullet} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
   </div>
 </div>

@@ -2,14 +2,7 @@
 
 @layer base {
   html {
-    background-color: #fafafa;
-    color: #1a1a1a;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  html.dark {
-    background-color: #111827;
-    color: #f3f4f6;
+    /* Rely on body class for background to avoid conflicts */
   }
 
   body {

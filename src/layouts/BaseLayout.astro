@@ -1,7 +1,7 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -9,11 +9,11 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, description, ogImage = '/og-image.svg' } = Astro.props;
+const { title, description, ogImage = "/og-image.svg" } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -47,8 +47,33 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script is:inline>
+      // Initialize theme to prevent FOUC
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      window.localStorage.setItem("theme", theme);
+    </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
+  <body
+    class="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300"
+  >
     <Header />
     <main class="flex-1">
       <slot />

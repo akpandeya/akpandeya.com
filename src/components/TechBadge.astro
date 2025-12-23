@@ -1,26 +1,26 @@
 ---
 interface Props {
   tech: string;
-  category: 'backend' | 'data' | 'devops' | 'frontend';
+  category?: "backend" | "frontend" | "devops" | "data" | "default";
 }
 
-const { tech, category } = Astro.props;
+const { tech, category = "default" } = Astro.props;
 
-const categoryStyles = {
-  backend: 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500',
-  data: 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-400 hover:to-purple-500',
-  devops: 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500',
-  frontend: 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500',
+const colors = {
+  backend: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+  frontend:
+    "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
+  devops:
+    "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300",
+  data: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+  default: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
 };
+
+const className = colors[category as keyof typeof colors] || colors.default;
 ---
 
 <span
-  class={`
-    inline-block px-3 py-1.5 rounded-full text-sm font-medium text-white
-    ${categoryStyles[category]}
-    transition-all duration-200 hover:scale-105 hover:shadow-lg
-    cursor-default
-  `}
+  class={`px-2.5 py-1 rounded-md text-xs font-medium ${className} transition-colors whitespace-nowrap`}
 >
   {tech}
 </span>
