@@ -15,18 +15,17 @@ Personal portfolio and blog built with Astro, TypeScript, and Tailwind CSS follo
 
 ### Test-Driven Development Cycle
 
-1. **RED:** Use `/test_writer` skill to create failing tests
-2. **GREEN:** Use `/code_writer` skill to implement minimal code
+1. **RED:** Use `/test_writer` agent to create failing tests
+2. **GREEN:** Use `/code_writer` agent to implement minimal code
 3. **REFACTOR:** Improve code quality while keeping tests green
 4. **VERIFY:** Use `/test_runner` to confirm all tests pass
 
-### Available Skills
+### Available Agents
 
 ```bash
 /test_writer     # Generate comprehensive tests (unit, integration)
 /code_writer     # Implement code following TDD and DDD patterns
 /test_runner     # Execute tests and display coverage reports
-/ci_cd_manager   # Manage GitHub Actions workflows
 /ddd_architect   # Domain modeling and architecture guidance
 ```
 
