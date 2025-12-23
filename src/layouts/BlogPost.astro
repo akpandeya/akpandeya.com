@@ -21,12 +21,12 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
     <header class="mb-8">
       <a
         href="/blog"
-        class="text-accent hover:text-accent-hover text-sm mb-4 inline-block"
+        class="text-accent dark:text-accent-dark hover:text-accent-hover dark:hover:text-cyan-300 text-sm mb-4 inline-block transition-all duration-300 hover:-translate-x-1"
       >
         ← Back to blog
       </a>
-      <h1 class="text-4xl font-bold mb-2">{title}</h1>
-      <div class="text-gray-600 text-sm">
+      <h1 class="text-4xl font-bold mb-2 text-text dark:text-gray-100">{title}</h1>
+      <div class="text-gray-600 dark:text-gray-400 text-sm">
         <time datetime={pubDate.toISOString()}>{formattedDate}</time>
         {readingTime && <span class="mx-2">•</span>}
         {readingTime && <span>{readingTime}</span>}
