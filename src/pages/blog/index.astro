@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return !data.draft;
+});
+
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Blog - Avanindra Kumar Pandeya"
+  description="Writing about software engineering, optimization problems, and lessons learned."
+>
+  <div class="max-w-content mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Writing</h1>
+
+    {
+      sortedPosts.length === 0 ? (
+        <p class="text-gray-600">No posts yet. Check back soon!</p>
+      ) : (
+        <div>
+          {sortedPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              slug={post.slug}
+            />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>

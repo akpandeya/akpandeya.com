@@ -1,0 +1,28 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b border-gray-200 bg-white">
+  <nav class="max-w-content mx-auto px-4 py-6 flex justify-between items-center">
+    <a
+      href="/"
+      class="text-xl font-semibold text-text no-underline hover:text-accent"
+    >
+      Avanindra Kumar Pandeya
+    </a>
+    <div class="flex gap-6">
+      <a
+        href="/"
+        class={`no-underline hover:text-accent ${currentPath === '/' ? 'text-accent font-medium' : 'text-text'}`}
+      >
+        Home
+      </a>
+      <a
+        href="/blog"
+        class={`no-underline hover:text-accent ${currentPath.startsWith('/blog') ? 'text-accent font-medium' : 'text-text'}`}
+      >
+        Blog
+      </a>
+    </div>
+  </nav>
+</header>
