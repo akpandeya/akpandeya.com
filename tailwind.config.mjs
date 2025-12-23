@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  darkMode: 'class',
+  // darkMode: 'class', // Not needed in v4 - configured via @custom-variant in global.css
   theme: {
     extend: {
       colors: {
