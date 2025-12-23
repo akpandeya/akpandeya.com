@@ -1,0 +1,28 @@
+---
+interface Props {
+  gradient?: boolean;
+  glowEffect?: boolean;
+  class?: string;
+}
+
+const { gradient = false, glowEffect = false, class: className = '' } = Astro.props;
+---
+
+<div class={`
+  relative rounded-2xl p-6 md:p-8
+  bg-white/90 dark:bg-gray-800/50
+  border border-gray-200/50 dark:border-gray-700/50
+  shadow-lg hover:shadow-xl
+  transition-all duration-300
+  backdrop-blur-sm
+  ${glowEffect ? 'hover:shadow-glow-teal dark:hover:shadow-glow-teal' : ''}
+  ${className}
+`}>
+  {gradient && (
+    <div class="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-2xl pointer-events-none"></div>
+  )}
+
+  <div class="relative z-10">
+    <slot />
+  </div>
+</div>
